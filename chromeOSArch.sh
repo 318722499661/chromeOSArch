@@ -31,7 +31,7 @@ function start {
 	cd /tmp;
 	
 	echo "Downloading latest version of Arch chromebook...";
-	wget http://archlinuxarm.org/os/ArchLinuxARM-armv7-chromebook-latest.tar.gz;
+	curl -O http://archlinuxarm.org/os/ArchLinuxARM-armv7-chromebook-latest.tar.gz;
 	
 	mkdir root;
 	echo "Mounting root partition in tmp to extract Arch";
@@ -45,11 +45,11 @@ function start {
 	
 	mount /dev/${sd}p12 mnt;
 	mkdir mnt/u-boot;
-	wget http://archlinuxarm.org/os/exynos/boot.scr.uimg;
+	curl -O http://archlinuxarm.org/os/exynos/boot.scr.uimg;
 	cp boot.scr.uimg mnt/u-boot;
 	umount mnt;
 
-	wget -O - http://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/nv_uboot-snow.kpart.bz2 | bunzip2 > nv_uboot-snow.kpart;
+	curl -O - http://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/nv_uboot-snow.kpart.bz2 | bunzip2 > nv_uboot-snow.kpart;
 	dd if=nv_uboot-snow.kpart of=/dev/${sd}p1;
 
 	umount root;
